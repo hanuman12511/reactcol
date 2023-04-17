@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import {useLocation} from 'react-router-dom'
+import ReactStars from 'react-stars'
 function Details(){
     let location = useLocation();
     const[product,setProduct] = useState(location.state)
@@ -19,7 +20,7 @@ alert('buy now')
     }
     return(
         <>
-        <h3>{product.name}</h3>
+        <h4 style={{marginLeft:20}}>{product.name}</h4>
         <div className='details'>
             <div className='details-image'>
                 <div className='details-image-show'>
@@ -41,24 +42,41 @@ alert('buy now')
 
             </div>
             <div className='details-info'>
-                    <div className='details-info-ratings'>
-                            <p>1,441 ratings</p>
+                <div>
+                 <div className='details-product-info'>
+                    <p>Brand:<span style={{color:'  rgb(1, 122, 133)',marginLeft:5}}>{product.Brand}</span></p>
+                     <div>
+                        <div>
+                    <ReactStars
+                    count={5}
+                    size={15}
+                    color2={'#ffd700'} 
+                    value={3}
+                    /> </div>
+                     <div>
+                    <p>1,441 ratings</p>
+                    </div>
+                    </div>
+                   
                     </div>
                     
-                    <div className='details-info-rate'>
+                    <div  className='details-product-info'>
                         <p>Rs.{product.sellRate}/-</p>
                         <p>Inclusive of all taxes EMI starts at ₹2,962. No Cost EMI available EMI o</p>
                     </div>
                     
-                    <div className='details-info-offer'>
+                    <div  className='details-product-info'>
                             <p>Offers</p>
                     </div>
                     
-                    <div className='details-info-color'>
+                    <div  className='details-product-info'>
                             <p>Colour:{product.color}</p>
                     </div>
                     
-                    <div className='details-button'>
+                </div>
+               
+                    
+                    <div>
                            
                     <button value={product} onClick={()=>productaddtocart(product)}>Add To Cart </button> 
                     <button value={product} onClick={()=>productbuynow(product)}>Buy Now </button>
