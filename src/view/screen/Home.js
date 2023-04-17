@@ -1,8 +1,36 @@
-import {jewellery} from '../data/data'
+import {jewellery,banner} from '../data/data'
 import {useNavigate} from 'react-router-dom'
 import ReactStars from 'react-stars'
 import React,{useState} from 'react'
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel as Car } from 'react-responsive-carousel';
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import AwesomeSlider from 'react-awesome-slider';
+import 'react-awesome-slider/dist/styles.css';
 function Home(){
+
+    const responsive = {
+        superLargeDesktop: {
+         
+          breakpoint: { max: 4000, min: 3000 },
+          items: 5
+        },
+        desktop: {
+          breakpoint: { max: 3000, min: 1024 },
+          items: 5
+        },
+        tablet: {
+          breakpoint: { max: 1024, min: 464 },
+          items: 2
+        },
+        mobile: {
+          breakpoint: { max: 464, min: 0 },
+          items: 1
+        }
+      };
+    
+
     const[mrprate,setMrprate] = useState('')
     const[rate,setrate] = useState('')
     let navigate = useNavigate()
@@ -14,16 +42,25 @@ function productdetails(d){
 navigate('/details',{state:d})
 }
 
-console.log(jewellery);
-jewellery.map((d,index)=>{
-    d.rate.map(dd=>{
-        console.log(dd);
-    })
-})
 
-    return(
+return(
         <>
-        <div className='main-div-product'>
+<div>
+
+<AwesomeSlider className='slider' >
+    {
+    banner.map(function(d){
+    return(
+        <div data-src={d}  className='slider' />
+        )
+        })
+    }
+  </AwesomeSlider>
+    </div>
+
+      
+  <div className='main-div-product'>
+          
            {
             jewellery.map(function(d){
             return(
@@ -56,21 +93,35 @@ jewellery.map((d,index)=>{
                     />
                     <p>1200</p>
                     </div>
-                    {/* <div className='product-detail'>
-                    <div className='product-detail-addtocart'>
-                    <input type='button' value="Add To Cart" onClick={addtocart}/>
-                    </div>    
-                    
-                    <div className='product-detail-show'>
-                     
-                    <button value={d} onClick={()=>productdetails(d)}>Details </button>
-                     </div>    
-            </div> */}
+                   
                 </div>  
                 
             </div>)
             })
             } 
+        </div>
+        <div className='mslider'>
+        <Carousel responsive={responsive}
+        autoPlaySpeed={100}
+        infinite={true}
+        transitionDuration={500}
+        >
+             { jewellery.map(function(d){
+                 return(
+                     <div>
+                          <div>
+                             <img src={d.image} style={{width:'100PX',height:'100PX'}}/>
+                        </div> 
+                     </div>)
+                 })
+             }
+              <div>
+                <div>
+                    <h1>get more</h1>
+                </div> 
+              </div>
+        </Carousel>
+
         </div>
         </>
     )

@@ -1,3 +1,19 @@
+.slider{
+   
+    width: 100%;
+    height: 400px;
+}
+.mslider{
+   
+    width: 90%;
+    height: 100px;
+    margin-top: 30px;
+    background-color: blanchedalmond;
+    margin-bottom: 30px;
+    padding: 30px;
+    margin: auto;
+}
+
 p{
     margin: 0px;
     padding: 0px;

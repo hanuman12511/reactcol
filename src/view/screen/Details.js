@@ -5,9 +5,16 @@ function Details(){
     let location = useLocation();
     const[product,setProduct] = useState(location.state)
     const[image,setImage] = useState(product.image)
-    console.log(product);
-    function productaddtocart(){
-alert("addtocart")
+    const[data,setLocalitem] = useState([])
+    function productaddtocart(product){
+       if(localStorage.getItem('addtocart'))
+         {  localStorage.setItem("addtocart",JSON.stringify([localStorage.getItem('addtocart'),product]))
+    }
+         else{
+           localStorage.setItem("addtocart",JSON.stringify(product))
+        }
+           console.log(JSON.parse(localStorage.getItem('addtocart')));
+        
     }
     function productbuynow(){
 alert('buy now')
