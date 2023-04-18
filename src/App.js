@@ -37,8 +37,10 @@ let isRegister=()=>{
   <div className='logo-div'>
     <img src={require('./view/img/icon/account.png')}  className='accountlogo' onClick={isAccount} />
    { isVisible&& <div className='accountdrop'>
+    <ul>
        <li onClick={isRegister}>Register</li>
         <li onClick={isLogin}>Login</li>
+    </ul>
     </div>
     }
   </div>
