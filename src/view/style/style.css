@@ -3,6 +3,46 @@
     width: 100%;
   text-decoration: none;
   color: rgb(2, 83, 115);
+}
+  .menubar{
+    width: 100%;
+    background-color: rgb(232, 200, 172);
+    display: inline-flex;
+    align-items: center;
+    
+    
+}
+.accountlogo{
+    width: 30px;
+    height:30px;
+    margin-right: 20px;
+}
+.accountdrop{
+    position:absolute;
+    top: 50px;
+    right:1px;
+    background-color: rgb(232, 200, 172);
+    padding: 10px;
+    z-index: 80;
+
+}
+.accountdrop li{
+    background-color: aqua;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10;
+}
+.accountdrop h4{
+  /*   margin: 0px;
+    padding: 0px; */
+}
+.menu-div{
+    width: 70%;
+
+}
+.logo-div{
+    width: 30%;
+    text-align: end;
 
 }
 .menubar ul{
@@ -19,12 +59,7 @@ transition: 2s;
     color: black;
     background-color: aliceblue;
 }
-.menubar{
-    width: 100%;
-    background-color: aqua;
-    
-    
-}
+
 
 .slider{
    
