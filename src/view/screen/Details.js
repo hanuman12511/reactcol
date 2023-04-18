@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {useState} from 'react'
 import {useLocation} from 'react-router-dom'
 import ReactStars from 'react-stars'
@@ -6,15 +7,28 @@ function Details(){
     const[product,setProduct] = useState(location.state)
     const[image,setImage] = useState(product.image)
     const[data,setLocalitem] = useState([])
-    function productaddtocart(product){
-       if(localStorage.getItem('addtocart'))
-         {  localStorage.setItem("addtocart",JSON.stringify([localStorage.getItem('addtocart'),product]))
-    }
-         else{
-           localStorage.setItem("addtocart",JSON.stringify(product))
+    let productaddtocart=async(product)=>{
+             let params={
+            "Brand":product.Brand,
+            "Color":product.Color,
+            "Delivery":product.Delivery,
+            "Dimensions":product.Dimensions,
+            "Disclaimer":product.Disclaimer,
+            "Feature":product.Feature,
+            "Jewellery Care":product.Jewellery_Care,
+            "Material":product.Material,
+            "Offers":product.Offers,
+            "Plating":product.Plating,
+            "Stones":product.Stones,
+            "allImage":product.allImage,
+            "id":product.id,
+            "image":product.image,
+            "name":product.name,
+            "rate":product.rate
         }
-           console.log(JSON.parse(localStorage.getItem('addtocart')));
-        
+      let res = await axios.post('addtocart',params)
+      console.log(res.data);
+      alert("product insert successfully")
     }
     function productbuynow(){
 alert('buy now')

@@ -53,7 +53,9 @@ navigate('/details',{state:d})
 return(
       <>
       <div>
-        <AwesomeSlider className='slider'  bullets={false} >
+        <AwesomeSlider className='slider'  bullets={true} play={true}
+    cancelOnInteraction={false}
+    interval={100} >
         {
         banner.map(function(d){
         return(
@@ -101,9 +103,10 @@ return(
       </div>
       <div className='mslider'>
         <Carousel responsive={responsive}
-        autoPlaySpeed={100}
+        autoPlaySpeed={500}
         infinite={true}
         transitionDuration={500}
+          autoPlay={true}
         >
           { jewellery.map(function(d){
               return(
@@ -122,6 +125,10 @@ return(
             </div>
       </Carousel>
 
+      </div>
+      <div className='footer'></div>
+      <div className='copy-right'>
+        <h3>All Copy Right@.com</h3>
       </div>
     </>
     )
