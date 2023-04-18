@@ -8,7 +8,12 @@ export var product=[
 export var menubar=["About","Service","Pricing","Contact"]
 
 
-export var banner=[require('../img/banner/05e07a75023dcd2c5356bf0fa2fe8140.jpg'),require('../img/banner/360_F_346589523_rraNRHtzHRN4pRSXgrilSEDRipk0UmjB.jpg'),require('../img/banner/pngtree-taobao-jewelry-fresh-and-simple-gold-jewelry-poster-picture-image_1034493.jpg'),require('../img/banner/1624725931769-Thumb_Ring_Main Banner_1190x386.jpg')]
+export var banner=[
+    require('../img/banner/05e07a75023dcd2c5356bf0fa2fe8140.jpg'),
+    require('../img/banner/360_F_346589523_rraNRHtzHRN4pRSXgrilSEDRipk0UmjB.jpg'),
+    require('../img/banner/pngtree-taobao-jewelry-fresh-and-simple-gold-jewelry-poster-picture-image_1034493.jpg'),
+    require('../img/banner/1624725931769-Thumb_Ring_Main Banner_1190x386.jpg')
+]
 export var jewellery=[
     {
         id:1,
