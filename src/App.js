@@ -6,8 +6,12 @@ import Addtocart from './view/screen/Addtocat';
 import './view/style/style.css'
 import {menubar} from './view/data/data'
 import axios from 'axios';
+import Login from './view/screen/Login';
+import Register from './view/screen/Register';
 function App() {
   const[isVisible,setAccount] = useState(false);
+  const[isLogReg,setLogReg] = useState("login");
+  const[isLogRegcolor,setLogRegColor] = useState("white");
   const navigate = useNavigate();
 
   let isAccount=()=>{
@@ -15,12 +19,14 @@ function App() {
     setAccount(!isVisible)
   }
 let isRegister=()=>{
-    alert("register")
-    setAccount(!isVisible)
+   
+  
+   setLogReg("register")
   }
   let isLogin=()=>{
-    alert("login")
-    setAccount(!isVisible)
+ 
+ 
+  setLogReg("login")
   }
 
 
@@ -50,11 +56,37 @@ navigate("/addtocart")
   
     <img src={require('./view/img/icon/account.png')}  className='accountlogo' onClick={isAccount} />
   
-   { isVisible&& <div className='accountdrop'>
-    <ul>
-       <li onClick={isRegister}>Register</li>
-        <li onClick={isLogin}>Login</li>
-    </ul>
+   { isVisible&& <div className='accountdrop' >
+    <div className='close' onClick={()=>setAccount(!isAccount)}></div>
+    <div className='accountshow-div'>
+      <div className='div1'>
+      <p className='register' style={{backgroundColor:isLogReg ==="login"?isLogRegcolor:""}} onClick={isLogin}>Login</p>
+      <p className='register' style={{backgroundColor:isLogReg ==="register"?isLogRegcolor:""}} onClick={isRegister}>Register</p>
+      
+      </div>
+     { isLogReg==="login"?<div className='login-form'>
+      <h2>User Login Form </h2>
+      <hr/>
+      <input placeholder='Enter UserName & Email..' type='text'/>
+      
+       <input placeholder='Enter Password..' type='password'/>
+       <input type='button' value="Login" className='regbutton' style={{backgroundColor:' aqua',width:'50%',marginTop:50}}/>
+      
+      </div> :
+       <div className='register-form'>
+        <h2>User Register Form </h2>
+        <hr/>
+       <input placeholder='Enter UserName..' type='text'/>
+       <input placeholder='Enter Email..' type='email'/>
+       <input placeholder='Enter Password..' type='password'/>
+       <input type='button' value="Register" className='regbutton' style={{backgroundColor:' aqua',width:'50%',marginTop:50}}/>
+      </div>
+  }  
+      
+        
+        
+        
+    </div>
     </div>
     }
   </div>
@@ -63,6 +95,8 @@ navigate("/addtocart")
   <Route path="/" element={<Home />} />
   <Route path="/details" element={<Details />} />
   <Route path="/addtocart" element={<Addtocart />} />
+  <Route path="/login" element={<Login />} />
+  <Route path="/register" element={<Register />} />
 </Routes>
     
 </>
