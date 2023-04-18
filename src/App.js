@@ -12,6 +12,9 @@ function App() {
   const[isVisible,setAccount] = useState(false);
   const[isLogReg,setLogReg] = useState("login");
   const[isLogRegcolor,setLogRegColor] = useState("white");
+  const[username,setUername] = useState("");
+  const[email,setEmail] = useState("");
+  const[password,setPassword] = useState("");
   const navigate = useNavigate();
 
   let isAccount=()=>{
@@ -34,7 +37,57 @@ let isRegister=()=>{
 
 navigate("/addtocart")
   }
+  
+let submitregister=async()=>{
+let params={
+  username:username,
+  email:email,
+  password:password
+}
 
+console.log(params);
+let res =await axios.post("register",params)
+console.log(res.data);
+let {success,message} =res.data
+if(success){
+alert(message)
+setLogReg("login")
+
+}
+else{
+  alert(message)
+
+}
+
+setEmail("")
+setPassword("")
+setUername("")
+  }
+  let submitlogin=async()=>{
+    
+    let params={
+      email:email,
+      password:password
+    }
+    
+    console.log(params);
+    let res =await axios.post("login",params)
+console.log(res.data);
+
+let {success,message} =res.data
+if(success){
+alert(message)
+
+}
+else{
+  alert(message)
+
+}
+
+
+setEmail("")
+setPassword("")
+  }
   return (
 <>
 
@@ -67,19 +120,19 @@ navigate("/addtocart")
      { isLogReg==="login"?<div className='login-form'>
       <h2>User Login Form </h2>
       <hr/>
-      <input placeholder='Enter UserName & Email..' type='text'/>
+      <input placeholder='Enter UserName & Email..' type='text' value={email} onChange={d=>setEmail(d.target.value)}/>
       
-       <input placeholder='Enter Password..' type='password'/>
-       <input type='button' value="Login" className='regbutton' style={{backgroundColor:' aqua',width:'50%',marginTop:50}}/>
+       <input placeholder='Enter Password..' type='password' value={password} onChange={d=>setPassword(d.target.value)}/>
+       <input type='button' onClick={submitlogin} value="Login" className='regbutton' style={{backgroundColor:' aqua',width:'50%',marginTop:50}}/>
       
       </div> :
        <div className='register-form'>
         <h2>User Register Form </h2>
         <hr/>
-       <input placeholder='Enter UserName..' type='text'/>
-       <input placeholder='Enter Email..' type='email'/>
-       <input placeholder='Enter Password..' type='password'/>
-       <input type='button' value="Register" className='regbutton' style={{backgroundColor:' aqua',width:'50%',marginTop:50}}/>
+       <input placeholder='Enter UserName..' type='text' value={username} onChange={d=>setUername(d.target.value)}/>
+       <input placeholder='Enter Email..' type='email' value={email} onChange={d=>setEmail(d.target.value)}/>
+       <input placeholder='Enter Password..' type='password' value={password} onChange={d=>setPassword(d.target.value)}/>
+       <input type='button' value="Register" onClick={submitregister} className='regbutton' style={{backgroundColor:' aqua',width:'50%',marginTop:50}}/>
       </div>
   }  
       
