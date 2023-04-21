@@ -1,0 +1,10 @@
+.name{
+    padding: 10px;
+}
+.table{
+    border: 0px;
+    width: 300px;
+    background-color: aqua;
+    margin: auto;
+    border-radius: 20px;
+}

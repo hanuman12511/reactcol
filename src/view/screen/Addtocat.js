@@ -3,6 +3,7 @@ import { useState ,useEffect} from "react";
 
 function Addtocart(){
 
+    const[username,setUsername] = useState(localStorage.getItem('user'))
     let adddelete=()=>{
         alert("delete product")
     }
@@ -12,7 +13,8 @@ function Addtocart(){
     const[data,setData] = useState('')
     useEffect(()=>{
         let showData=async()=>{
-        let res =await axios.get("showtocart")
+           let params={"username":username}
+        let res =await axios.post("showtocart",params)
            // console.log(res.data); 
             setData(res.data)
         }
@@ -23,6 +25,7 @@ function Addtocart(){
        <>
       
        <div className="addtocart-div">
+        {username?
        <table>
         <tr><th colspan="2">Product Details</th><th>Price</th><th>Quantity</th><th>SubTotal</th><th>Action</th></tr>
        {data!==''?data.map(d=>{
@@ -41,7 +44,9 @@ function Addtocart(){
     {/* </table>
     <table> */}
         <tr><th colSpan={2}>SubTotal</th><th colSpan={2}>Rs.1000/-</th><th colSpan={2}><p className="addpayamount" onClick={payamount}> PayAmount</p></th></tr>
-    </table>
+    </table>:<div className="cartempty">
+        <img src={require('../img/icon/emptycart.png')}/>
+        </div>}
     </div>
    
        </>

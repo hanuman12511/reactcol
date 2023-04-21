@@ -1,13 +1,16 @@
 import axios from 'axios';
 import {useState} from 'react'
-import {useLocation} from 'react-router-dom'
+import {Navigate, useLocation,useNavigate} from 'react-router-dom'
 import ReactStars from 'react-stars'
 function Details(){
     let location = useLocation();
+    let navigate=useNavigate();
     const[product,setProduct] = useState(location.state)
+    const[username,setUsername] = useState(localStorage.getItem('user'))
     const[image,setImage] = useState(product.image)
     const[data,setLocalitem] = useState([])
     let productaddtocart=async(product)=>{
+        if(username){
              let params={
             "Brand":product.Brand,
             "Color":product.Color,
@@ -24,11 +27,18 @@ function Details(){
             "id":product.id,
             "image":product.image,
             "name":product.name,
-            "rate":product.rate
+            "rate":product.rate,
+            "username":username
         }
       let res = await axios.post('addtocart',params)
       console.log(res.data);
-      alert("product insert successfully")
+      alert("product insert successfully ")
+    navigate("/") 
+    }
+
+    else{
+        alert('Product not insert addtocart login User')
+    }
     }
     function productbuynow(){
 alert('buy now')

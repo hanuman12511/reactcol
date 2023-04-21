@@ -1,4 +1,4 @@
-import {useState,useEffect,useContext} from 'react'
+import {useState,useEffect} from 'react'
 import Home from './view/screen/Home'
 import Details from './view/screen/Details'
 import {BrowserRouter as Router,Route,Routes, Link,useNavigate, Form} from 'react-router-dom'
@@ -9,10 +9,7 @@ import axios from 'axios';
 import Login from './view/screen/Login';
 import Register from './view/screen/Register';
 import Form1 from './view/screen/Form'
-import UserContent from './view/content'
-
 function App() {
-
   const[isVisible,setAccount] = useState(false);
   const[isAccountLog,setAccountLogin] = useState(localStorage.getItem('user'));
   const[isLogReg,setLogReg] = useState("login");
@@ -20,12 +17,13 @@ function App() {
   const[username,setUername] = useState("");
   const[email,setEmail] = useState("");
   const[password,setPassword] = useState("");
-  const [file, setFile] = useState("");
-  const [fileName, setFileName] = useState("");
-
   const navigate = useNavigate();
 /* alert(isAccountLog)  */
 
+
+useEffect(()=>{
+
+},[isAccountLog])
   let isAccount=()=>{
     //alert("account")
     setAccount(!isVisible)
@@ -48,19 +46,10 @@ navigate("/addtocart")
   }
   
 let submitregister=async()=>{
-console.log(file);
-console.log(fileName);
-  const formdata= new FormData();
-  formdata.append("file",file)
-  formdata.append("filename",fileName)
-  let data =JSON.stringify( Object.fromEntries(formdata));
-
-console.log(data);
-  let params={
+let params={
   username:username,
   email:email,
-  password:password,
-  image:formdata
+  password:password
 }
 console.log(params);
 try {
@@ -99,11 +88,10 @@ let submitlogin=async()=>{
       let {success,message} =res.data
       if(success){
       alert(message)
-   
+      /* alert(email) */
      localStorage.setItem("user",email)
-     setAccountLogin(localStorage.getItem('user'))
+     // navigate("/")
       setAccount(!isVisible)
-      navigate("/")
       }
       else{
         alert(message)
@@ -115,15 +103,10 @@ let submitlogin=async()=>{
     setPassword("")
   }
 let logout=async()=>{
-	localStorage.clear();
-  setAccountLogin(null)
+  alert("logout")
+   localStorage.clear();
   navigate("/")
 }
-function upload(e){
- setFile(e.target.files[0])
- setFileName(e.target.files[0].name)
-}
-
  return (
 <>
 
@@ -139,11 +122,10 @@ function upload(e){
   </ul>
   </div>
   <div className='logo-div'>
-   {isAccountLog&&<><img src={require('./view/img/icon/profile.png')}  className='accountlogo' onClick={()=>alert("notify")} />
-  
- <p>{isAccountLog}</p></>}
   <img src={require('./view/img/icon/notify.png')}  className='accountlogo' onClick={()=>alert("notify")} />
+  
   <img src={require('./view/img/icon/cart.png')}  className='accountlogo' onClick={showtocart} />
+  
     {isAccountLog===null?
       <img src={require('./view/img/icon/account.png')}  className='accountlogo' onClick={isAccount} />
     : <img src={require('./view/img/icon/logout.png')}  className='accountlogo' onClick={logout} />
@@ -170,7 +152,6 @@ function upload(e){
        <input placeholder='Enter UserName..' type='text' value={username} onChange={d=>setUername(d.target.value)}/>
        <input placeholder='Enter Email..' type='email' value={email} onChange={d=>setEmail(d.target.value)}/>
        <input placeholder='Enter Password..' type='password' value={password} onChange={d=>setPassword(d.target.value)}/>
-       <input type='file' onChange={upload}/>
        <input type='button' value="Register" onClick={submitregister} className='regbutton' style={{backgroundColor:' aqua',width:'50%',marginTop:50}}/>
       </div>
   }     

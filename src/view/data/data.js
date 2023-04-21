@@ -5,7 +5,7 @@ export var product=[
     {id:4,name:'OnePlus 11 5G (Titan Black, 16GB RAM, 256GB Storage)',sellRate:'39,999',MRPRate:'49,999',image:require('../img/img4.jpg'),color:'Galactic Silver'},
 ]
 
-export var menubar=["About","Service","Pricing","Contact"]
+export var menubar=["About","Service","Pricing","Contact","Form"]
 
 
 export var banner=[
