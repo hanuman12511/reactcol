@@ -54,8 +54,8 @@ return(
       <>
       <div>
         <AwesomeSlider className='slider'  bullets={true} play={true}
-    cancelOnInteraction={false}
-    interval={100} >
+           cancelOnInteraction={false}
+            interval={100} >
         {
         banner.map(function(d){
         return(

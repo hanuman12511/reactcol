@@ -1,6 +1,15 @@
 var express = require('express')
 var fs = require('fs');
+const fileupload = require("express-fileupload");
+const cors = require("cors");
+const bodyParser = require('body-parser');
 var app = express()
+app.use(cors());
+app.use(fileupload());
+app.use(express.static("files"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(express.json())
 var fs = require('fs');
 let data =[{id:1,name:"hanu"},{id:2,name:"hanu1"}]
@@ -19,18 +28,9 @@ app.post('/addtocart',function(req,res){
 
  
  app.post('/register',function(req,res){
-    console.log(JSON.stringify(req.body));
-    const newpath = __dirname + "/img/";
-    const file = req.files.file;
-    const filename = file.name;
-   
-    file.mv(`${newpath}${filename}`, (err) => {
-      if (err) {
-        res.status(500).send({ message: "File upload failed", code: 200 });
-      }
-      res.status(200).send({ message: "File Uploaded", code: 200 });
-    });
-  /*   let result=fs.appendFileSync('./data/userdata.json', JSON.stringify(req.body),"utf8")
+  
+  
+   let result=fs.appendFileSync('./data/userdata.json', JSON.stringify(req.body),"utf8")
     fs.appendFileSync('./data/userdata.json', "\n","utf8")
     let resultdata=""
     if(!result){
@@ -40,7 +40,7 @@ app.post('/addtocart',function(req,res){
         resultdata={success:false,message:"data not insert successfully"}
         
     }
-    res.send(resultdata) */
+    res.send(resultdata)
  })
 
  
@@ -55,11 +55,11 @@ app.post('/addtocart',function(req,res){
         if(d!=="")
         add1.push(JSON.parse(d))
     })
-    console.log(add1);
+    
     let resultlog="";
     add1.map(d=>{
         if(d.username===req.body.email ||d.email===req.body.email && d.password===req.body.password  ){
-            resultlog={success:true,message:"user login successfully"}
+            resultlog={success:true,message:"user login successfully",data:d}
         }
     })
     if(resultlog){

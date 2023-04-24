@@ -23,6 +23,8 @@ function App() {
   const [file, setFile] = useState("");
   const [fileName, setFileName] = useState("");
 
+console.log("****&&&&***&&");
+
   const navigate = useNavigate();
 /* alert(isAccountLog)  */
 
@@ -50,6 +52,7 @@ navigate("/addtocart")
 let submitregister=async()=>{
 console.log(file);
 console.log(fileName);
+
   const formdata= new FormData();
   formdata.append("file",file)
   formdata.append("filename",fileName)
@@ -60,7 +63,7 @@ console.log(data);
   username:username,
   email:email,
   password:password,
-  image:formdata
+  image:file
 }
 console.log(params);
 try {
@@ -96,12 +99,12 @@ let submitlogin=async()=>{
       let res =await axios.post("login",params).catch(err=>alert(err))
       console.log(res.data);
       
-      let {success,message} =res.data
+      let {success,message,data} =res.data
       if(success){
       alert(message)
-   
-     localStorage.setItem("user",email)
-     setAccountLogin(localStorage.getItem('user'))
+   console.log(data);
+     localStorage.setItem("user",JSON.stringify(data))
+     setAccountLogin(localStorage.getItem("user"))
       setAccount(!isVisible)
       navigate("/")
       }
@@ -120,7 +123,15 @@ let logout=async()=>{
   navigate("/")
 }
 function upload(e){
- setFile(e.target.files[0])
+  let files = e.target.files;
+  let reader = new FileReader();
+  reader.readAsDataURL(files[0]);
+  reader.onload = (e) => {
+      console.log("*************");
+      console.log(e.target.result)
+      setFile(e.target.result)   
+  }
+ 
  setFileName(e.target.files[0].name)
 }
 
@@ -139,9 +150,11 @@ function upload(e){
   </ul>
   </div>
   <div className='logo-div'>
-   {isAccountLog&&<><img src={require('./view/img/icon/profile.png')}  className='accountlogo' onClick={()=>alert("notify")} />
+   {isAccountLog&&<><img src={JSON.parse(isAccountLog).image}  className='accountlogo' onClick={()=>alert("notify")} />
   
- <p>{isAccountLog}</p></>}
+  <p>{isAccountLog!==null?JSON.parse(isAccountLog).username:"user"}</p> 
+ 
+ </>}
   <img src={require('./view/img/icon/notify.png')}  className='accountlogo' onClick={()=>alert("notify")} />
   <img src={require('./view/img/icon/cart.png')}  className='accountlogo' onClick={showtocart} />
     {isAccountLog===null?
