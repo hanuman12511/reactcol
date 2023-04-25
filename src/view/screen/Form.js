@@ -1,26 +1,53 @@
-import '../style/form.css'
-import {useState} from 'react'
-export default function Form(){
-//const[data,setData] =useState({name:'',email:'',password:''})
-const[name,setName] =useState('')
-const[email,setEmail] =useState('')
-const[password,setPassword] =useState('')
-    function register(){
+import React, { useRef, useState } from 'react';
+import axios from 'axios';
 
-       console.log(name);
-       console.log(email);
-       console.log(password);
+function From() {
+
+    const [file, setFile] = useState(''); // storing the uploaded file
+    // storing the recived file from backend
+    const [data, getFile] = useState({ name: "", path: "" });
+    const [progress, setProgess] = useState(0); // progess bar
+    const el = useRef(); // accesing input element
+
+    const handleChange = (e) => {
+        setProgess(0)
+        const file = e.target.files[0]; // accessing file
+        console.log(file);
+        setFile(file); // storing file
     }
-    return(
-        <>
-        <h1>Forms</h1>
-        <table className='table'>
-        <tr><td>Name:</td><td><input placeholder="enter name" className="name" value={name}onChange={(name)=>setName(name.target.value)}/></td></tr>
-        <tr><td>Email:</td><td><input placeholder="enter Email" className="name" value={email}onChange={(name)=>setEmail(name.target.value)}/></td></tr>
-        <tr><td>password:</td><td><input placeholder="enter password" className="name" value={password}onChange={(name)=>setPassword(name.target.value)}/></td></tr>
-        <tr><td></td><td><input type='button' value="Register" className="name" onClick={register}/></td></tr>
 
-        </table>
-        </>
-    )
+    const uploadFile = () => {
+        const formData = new FormData();
+        formData.append('file', file); // appending file
+        axios.post('/upload', formData, {
+            onUploadProgress: (ProgressEvent) => {
+                let progress = Math.round(
+                ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
+                setProgess(progress);
+            }
+        }).then(res => {
+            console.log(res);
+            getFile({ name: res.data.name,
+                     path: 'http://localhost:8080//public/' + res.data.path
+                   })
+        }).catch(err => console.log(err))}
+
+    return (
+        <div>
+            <div className="file-upload">
+                <input type="file" ref={el} onChange={handleChange} />
+                <div className="progessBar" style={{ width: progress }}>
+                   {progress}
+                </div>
+                <button onClick={uploadFile} className="upbutton">
+                   Upload
+                </button>
+            <hr />
+            {/* displaying received image*/}
+            {data.path && <img src={data.path} alt={data.name} />}
+            </div>
+        </div>
+    );
 }
+
+export default From;
