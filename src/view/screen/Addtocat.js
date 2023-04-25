@@ -5,6 +5,7 @@ function Addtocart(){
 
     const nav = useNavigate()
     const[username,setUsername] = useState(localStorage.getItem('user'))
+    console.log(username);
     let adddelete=()=>{
         alert("delete product")
     }
@@ -14,7 +15,7 @@ function Addtocart(){
     const[data,setData] = useState('')
     useEffect(()=>{
         let showData=async()=>{
-           let params={"username":username}
+           let params={"username":JSON.parse(username)?.email}
         let res =await axios.post("showtocart",params)
            // console.log(res.data); 
             setData(res.data)
@@ -23,7 +24,7 @@ function Addtocart(){
     },[])
   
     async function download(){
-        let url = 'http://localhost:8080/download';
+        let url = `http://localhost:8080/download?username=${JSON.parse(username)?.email}`;
 		window.location.href = url;
     }
 

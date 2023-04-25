@@ -25,11 +25,31 @@ app.post('/jsontocsv',function(req,res){
     fs.writeFileSync(req.body.filename,csv,"utf8")
     res.send(csv)
    })
+
    app.get('/download',function(req,res){
+    const user = req?.query?.username;
+    console.log(user);
+    let data=fs.readFileSync('./data/addtocart.json',"utf8")
+    let adddata=[]
+    data.split('\n').forEach(d=>{
+        adddata.push(d)
+    })
+    let add1=[]
+    adddata.map(d=>{
+        if(d!=="")
+        add1.push(JSON.parse(d))
+    })
+   let cartitem=[]
+  
+    add1.map(d=>{
+        if(user === d.username){
+                cartitem.push(d);
+        }
+    }) 
+   
     const parser = new Parser();
-    const csv = parser.parse(data)
-    //fs.writeFileSync(req.body.filename,csv,"utf8")
-    res.attachment('product.csv')
+    const csv = parser.parse(cartitem)
+      res.attachment('product.csv')
     res.status(200).send(csv)
    })
 
@@ -39,6 +59,7 @@ app.post('/postdata',function(req,res){
 app.post('/addtocart',function(req,res){
     fs.appendFileSync('./data/addtocart.json', JSON.stringify(req.body),"utf8")
     fs.appendFileSync('./data/addtocart.json', "\n","utf8")
+    
     res.send(req.body)
  })
 
@@ -105,6 +126,7 @@ app.post('/addtocart',function(req,res){
                 cartitem.push(d);
         }
     })
+   
     res.send(cartitem)
  })
 app.listen(8080,function(err,data){
