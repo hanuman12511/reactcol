@@ -3,6 +3,7 @@ var fs = require('fs');
 const fileupload = require("express-fileupload");
 const cors = require("cors");
 const bodyParser = require('body-parser');
+const ctj = require('csvtojson')
 var app = express()
 app.use(cors());
 app.use(fileupload());
@@ -27,6 +28,18 @@ app.post('/jsontocsv',function(req,res){
    })
 
    app.get('/download',function(req,res){
+    ctj()
+    .fromFile('ram.csv')
+    .then(users => {
+      
+      console.log(users)
+    })
+    .catch(err => {
+      // log error if any
+      console.log(err)
+    })
+
+   
     const user = req?.query?.username;
     console.log(user);
     let data=fs.readFileSync('./data/addtocart.json',"utf8")
