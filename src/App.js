@@ -152,7 +152,7 @@ function upload(e){
   <div className='logo-div'>
    {isAccountLog&&<><img src={JSON.parse(isAccountLog).image}  className='accountlogo' onClick={()=>alert("notify")} />
   
-  <p>{isAccountLog!==null?JSON.parse(isAccountLog).username:"user"}</p> 
+  <p>{isAccountLog!==null?JSON.parse(isAccountLog)?.username:"user"}</p> 
  
  </>}
   <img src={require('./view/img/icon/notify.png')}  className='accountlogo' onClick={()=>alert("notify")} />

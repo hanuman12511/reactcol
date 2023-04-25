@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useState ,useEffect} from "react";
-
+import {useNavigate} from 'react-router-dom'
 function Addtocart(){
 
+    const nav = useNavigate()
     const[username,setUsername] = useState(localStorage.getItem('user'))
     let adddelete=()=>{
         alert("delete product")
@@ -21,12 +22,18 @@ function Addtocart(){
         showData();
     },[])
   
+    async function download(){
+        let url = 'http://localhost:8080/download';
+		window.location.href = url;
+    }
+
     return(
        <>
       
        <div className="addtocart-div">
         {username?
        <table>
+        <tr><th>	<a href="#" onClick={download}>Download</a></th></tr>
         <tr><th colspan="2">Product Details</th><th>Price</th><th>Quantity</th><th>SubTotal</th><th>Action</th></tr>
        {data!==''?data.map(d=>{
         return(

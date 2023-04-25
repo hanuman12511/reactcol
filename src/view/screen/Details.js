@@ -40,8 +40,37 @@ function Details(){
         alert('Product not insert addtocart login User')
     }
     }
-    function productbuynow(){
+  async  function productbuynow(){
 alert('buy now')
+if(username){
+    let params={
+   "Brand":product.Brand,
+   "Color":product.Color,
+   "Delivery":product.Delivery,
+   "Dimensions":product.Dimensions,
+   "Disclaimer":product.Disclaimer,
+   "Feature":product.Feature,
+   "Jewellery Care":product.Jewellery_Care,
+   "Material":product.Material,
+   "Offers":product.Offers,
+   "Plating":product.Plating,
+   "Stones":product.Stones,
+   "allImage":product.allImage,
+   "id":product.id,
+   "image":product.image,
+   "name":product.name,
+   "rate":product.rate,
+   "username":username
+}
+let res = await axios.post('addtocart',params)
+console.log(res.data);
+alert("product insert successfully ")
+navigate("/addtocart") 
+}
+
+else{
+alert('Product not insert addtocart login User')
+}
     }
 
 

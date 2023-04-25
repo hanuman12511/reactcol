@@ -9,13 +9,29 @@ app.use(fileupload());
 app.use(express.static("files"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+const {Parser} =require("json2csv")
 app.use(express.json())
 var fs = require('fs');
 let data =[{id:1,name:"hanu"},{id:2,name:"hanu1"}]
 app.get('/getdata',function(req,res){
     res.send(data);
 })
+
+app.post('/jsontocsv',function(req,res){
+    const parser = new Parser();
+    const csv = parser.parse(data)
+    console.log(csv);
+
+    fs.writeFileSync(req.body.filename,csv,"utf8")
+    res.send(csv)
+   })
+   app.get('/download',function(req,res){
+    const parser = new Parser();
+    const csv = parser.parse(data)
+    //fs.writeFileSync(req.body.filename,csv,"utf8")
+    res.attachment('product.csv')
+    res.status(200).send(csv)
+   })
 
 app.post('/postdata',function(req,res){
     res.send(req.body)
