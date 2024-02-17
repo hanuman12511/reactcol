@@ -1,0 +1,7 @@
+1.required( html/css/javascript)
+2.reactjs setup command in new System
+    1.npm i -g create-react-app
+3.project setup command in reactjs
+    1.npx create-react-app projectname
+4.router setup command in reactjs
+    1.npm i react-router-dom

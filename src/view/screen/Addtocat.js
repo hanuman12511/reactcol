@@ -40,9 +40,7 @@ function Addtocart(){
         return(
          <>
                 <tr><td><img src={d.image} className="cartimage"/></td><td> <p>{d.name}</p></td><td className="addtd">{d.rate[1]}</td> <td  className="addtd">1</td><td  className="addtd">{d.rate[1]}</td><td className="addtd"><img src={require('../img/icon/delete.png')} className="adddelete" onClick={adddelete}/></td></tr>
-    
-           
-            
+ 
             </>
         )
        })
